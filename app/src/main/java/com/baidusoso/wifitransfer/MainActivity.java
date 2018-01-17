@@ -1,7 +1,9 @@
 package com.baidusoso.wifitransfer;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -94,6 +97,27 @@ public class MainActivity extends AppCompatActivity implements Animator.Animator
         Timber.plant(new Timber.DebugTree());
         RxBus.get().register(this);
         initRecyclerView();
+
+        getStoragePermission();
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void getStoragePermission() {
+        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 101) {
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

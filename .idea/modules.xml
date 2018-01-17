@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WifiTransfer.iml" filepath="$PROJECT_DIR$/WifiTransfer.iml" />
+      <module fileurl="file://E:\project\WifiTransfer-master\WifiTransfer.iml" filepath="E:\project\WifiTransfer-master\WifiTransfer.iml" />
       <module fileurl="file://$PROJECT_DIR$/WifiTransfer-master.iml" filepath="$PROJECT_DIR$/WifiTransfer-master.iml" />
+      <module fileurl="file://E:\project\WifiTransfer-master\WifiTransfer-master.iml" filepath="E:\project\WifiTransfer-master\WifiTransfer-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\project\WifiTransfer-master\app\app.iml" filepath="E:\project\WifiTransfer-master\app\app.iml" />
     </modules>
   </component>
 </project>
