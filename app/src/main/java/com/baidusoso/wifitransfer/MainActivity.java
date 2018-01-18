@@ -3,7 +3,6 @@ package com.baidusoso.wifitransfer;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -101,9 +100,11 @@ public class MainActivity extends AppCompatActivity implements Animator.Animator
         getStoragePermission();
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+
     private void getStoragePermission() {
-        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+        }
     }
 
     @Override
