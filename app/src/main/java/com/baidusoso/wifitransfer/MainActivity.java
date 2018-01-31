@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
@@ -406,7 +407,7 @@ public class MainActivity extends AppCompatActivity implements Animator.Animator
                 holder.mTvAppInstall.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        installApkFile(MainActivity.this, new File(infoModel.getPath()));
+                        installAPK(new File(infoModel.getPath()));
                     }
                 });
                 holder.mTvAppDelete.setOnClickListener(new View.OnClickListener() {
@@ -483,6 +484,25 @@ public class MainActivity extends AppCompatActivity implements Animator.Animator
                 return true;
         }
         return false;
+    }
+
+    /**
+     * 安装APK
+     */
+    public void installAPK(File file) {
+        //8.0安装需要运行时权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            boolean b = getPackageManager().canRequestPackageInstalls();
+            if (b) {
+                installApkFile(this, file);
+            } else {
+                //跳转到未知权限页面
+                Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                startActivityForResult(intent, 200);
+            }
+        }else {
+            installApkFile(this, file);
+        }
     }
 
     //安装
